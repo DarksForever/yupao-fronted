@@ -7,6 +7,7 @@ export type userType = {
     userAccount: string;
     //可选的属性。如果 avaterUrl 不存在，则 gender 属性的类型将是 undefined。
     avaterUrl?: string;
+    profile?: string;
     gender: number;
     phone: string;
     email: string;

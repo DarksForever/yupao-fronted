@@ -1,6 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { showToast } from 'vant';
+import { useRouter } from "vue-router";
+
+const router = new useRouter();
+//搜索
+const doSearch = () => {
+    router.push({
+        path: '/user/list',
+        query: {
+            tags: activeIds.value
+        }
+    })
+}
 
 const originTagList = [
     {
@@ -69,6 +81,10 @@ const activeIndex = ref(0);
 
     <van-divider content-position="left">可选标签</van-divider>
     <van-tree-select v-model:active-id="activeIds" v-model:main-active-index="activeIndex" :items="tagList" />
+
+    <van-button round block type="primary" @click="doSearch">
+        搜索
+    </van-button>
 </template>
 
 <style scoped></style>
