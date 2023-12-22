@@ -1,19 +1,21 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
+import myAxios from "../plugins/myAxios.js";
 
-const user = {
-    id: 9527,
-    username: 'dark',
-    userAccount: 'forever',
-    avaterUrl: 'https://cn.bing.com/images/search?q=%E9%A3%8E%E6%99%AF%E5%9B%BE%E7%89%87&FORM=IQFRBA&id=B73DE60E39282A043F93D63353E74A3A45061381',
-    gender: '男',
-    phone: '123456',
-    email: '123456@321',
-    planetCode: '221',
-    createTime: new Date()
-}
-
+const user = ref();
 const router = new useRouter();
+
+onMounted(async () => {
+    const res = await myAxios.get('/user/current');
+    if (res.code === 0) {
+        user.value = res.data;
+        console.log('获取当前用户信息成功');
+    } else {
+        console.log('获取当前用户信息失败');
+    }
+})
+
 const toEdit = (editKey: string, editName: string, currentValue: string) => {
     router.push({
         path: '/user/edit',
